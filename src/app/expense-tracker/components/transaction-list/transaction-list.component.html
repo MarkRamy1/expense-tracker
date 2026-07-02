@@ -54,7 +54,7 @@
     <p>No transactions yet. Add one to get started!</p>
   </div>
 
-  <!-- Transaction table -->
+  <!-- Transaction table (desktop) -->
   <div class="table-wrapper" *ngIf="filteredTransactions.length > 0">
     <table class="transaction-table">
       <thead>
@@ -97,4 +97,40 @@
       </tbody>
     </table>
   </div>
+
+  <!-- Transaction cards (mobile) -->
+  <div class="cards-wrapper" *ngIf="filteredTransactions.length > 0">
+    <div class="transaction-cards">
+      @for (transaction of filteredTransactions; track transaction.id) {
+        <div class="transaction-card" [class]="getTypeClass(transaction.type)">
+          <div class="card-top">
+            <div class="card-date">{{ transaction.date }}</div>
+            <button
+              class="btn-delete card-delete"
+              (click)="deleteTransaction(transaction.id)"
+              title="Delete"
+            >
+              🗑️
+            </button>
+          </div>
+
+          <div class="card-desc">{{ transaction.description }}</div>
+
+          <div class="card-meta">
+            <span class="category-badge">{{ transaction.category }}</span>
+            <span class="type-badge-wrap">
+              <span [class]="'type-badge ' + getTypeClass(transaction.type)">
+                {{ getTypeLabel(transaction.type) }}
+              </span>
+            </span>
+          </div>
+
+          <div class="card-amount" [class]="getTypeClass(transaction.type)">
+            {{ formatCurrency(transaction.amount, transaction.type) }}
+          </div>
+        </div>
+      }
+    </div>
+  </div>
 </div>
+

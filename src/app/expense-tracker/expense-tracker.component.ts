@@ -93,7 +93,30 @@ import { Transaction } from './models/transaction.model';
       .container {
         padding: 1rem;
       }
+
+      .layout {
+        gap: 1.25rem;
+      }
+
+      .main-content {
+        gap: 1.25rem;
+      }
     }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 1.5rem 0.75rem;
+      }
+
+      .container {
+        padding: 0.75rem;
+      }
+
+      .layout {
+        gap: 1rem;
+      }
+    }
+
   `]
 })
 export class ExpenseTrackerComponent implements OnInit {
