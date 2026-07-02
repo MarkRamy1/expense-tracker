@@ -32,7 +32,9 @@
             "styles": ["src/styles.scss"]
           },
           "configurations": {
-            "production": {
+"production": {
+              "baseHref": "./",
+              "deployUrl": "./",
               "budgets": [
                 {
                   "type": "initial",
@@ -71,7 +73,11 @@
           "builder": "@angular/build:unit-test"
         },
         "deploy": {
-          "builder": "angular-cli-ghpages:deploy"
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "dir": "dist/expense-tracker/browser",
+            "baseHref": "/expense-tracker/"
+          }
         }
       }
     }
