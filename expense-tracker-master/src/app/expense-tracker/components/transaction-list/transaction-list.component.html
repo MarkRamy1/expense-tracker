@@ -1,0 +1,136 @@
+<div class="transaction-list-container">
+  <div class="list-header">
+    <h2>Transactions</h2>
+    <div class="controls">
+      <!-- Filter -->
+      <div class="filter-group">
+        <label>Filter:</label>
+        <button
+          [class.active]="filterType === 'all'"
+          (click)="onFilterChange('all')"
+          class="filter-btn"
+        >
+          All
+        </button>
+        <button
+          [class.active]="filterType === 'income'"
+          (click)="onFilterChange('income')"
+          class="filter-btn income"
+        >
+          Income
+        </button>
+        <button
+          [class.active]="filterType === 'expense'"
+          (click)="onFilterChange('expense')"
+          class="filter-btn expense"
+        >
+          Expenses
+        </button>
+      </div>
+
+      <!-- Sort -->
+      <div class="sort-group">
+        <label>Sort by:</label>
+        <button
+          [class.active]="sortBy === 'date'"
+          (click)="onSortChange('date')"
+          class="sort-btn"
+        >
+          Date {{ sortBy === 'date' ? (sortOrder === 'asc' ? '↑' : '↓') : '' }}
+        </button>
+        <button
+          [class.active]="sortBy === 'amount'"
+          (click)="onSortChange('amount')"
+          class="sort-btn"
+        >
+          Amount {{ sortBy === 'amount' ? (sortOrder === 'asc' ? '↑' : '↓') : '' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty state -->
+  <div class="empty-state" *ngIf="filteredTransactions.length === 0">
+    <p>No transactions yet. Add one to get started!</p>
+  </div>
+
+  <!-- Transaction table (desktop) -->
+  <div class="table-wrapper" *ngIf="filteredTransactions.length > 0">
+    <table class="transaction-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Description</th>
+          <th>Category</th>
+          <th>Type</th>
+          <th>Amount</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (transaction of filteredTransactions; track transaction.id) {
+          <tr [class]="getTypeClass(transaction.type)">
+            <td class="date">{{ transaction.date }}</td>
+            <td class="description">{{ transaction.description }}</td>
+            <td class="category">
+              <span class="category-badge">{{ transaction.category }}</span>
+            </td>
+            <td class="type">
+              <span [class]="'type-badge ' + getTypeClass(transaction.type)">
+                {{ getTypeLabel(transaction.type) }}
+              </span>
+            </td>
+            <td class="amount" [class]="getTypeClass(transaction.type)">
+              {{ formatCurrency(transaction.amount, transaction.type) }}
+            </td>
+            <td class="actions">
+              <button
+                class="btn-delete"
+                (click)="deleteTransaction(transaction.id)"
+                title="Delete"
+              >
+                🗑️
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Transaction cards (mobile) -->
+  <div class="cards-wrapper" *ngIf="filteredTransactions.length > 0">
+    <div class="transaction-cards">
+      @for (transaction of filteredTransactions; track transaction.id) {
+        <div class="transaction-card" [class]="getTypeClass(transaction.type)">
+          <div class="card-top">
+            <div class="card-date">{{ transaction.date }}</div>
+            <button
+              class="btn-delete card-delete"
+              (click)="deleteTransaction(transaction.id)"
+              title="Delete"
+            >
+              🗑️
+            </button>
+          </div>
+
+          <div class="card-desc">{{ transaction.description }}</div>
+
+          <div class="card-meta">
+            <span class="category-badge">{{ transaction.category }}</span>
+            <span class="type-badge-wrap">
+              <span [class]="'type-badge ' + getTypeClass(transaction.type)">
+                {{ getTypeLabel(transaction.type) }}
+              </span>
+            </span>
+          </div>
+
+          <div class="card-amount" [class]="getTypeClass(transaction.type)">
+            {{ formatCurrency(transaction.amount, transaction.type) }}
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,27 @@
+<div class="summary-charts-container">
+  <!-- Summary Stats -->
+  <div class="stats-summary">
+    <div class="stat-card income">
+      <h3>Total Income</h3>
+      <p class="amount">{{ totalIncome | currency }}</p>
+    </div>
+    <div class="stat-card expense">
+      <h3>Total Expenses</h3>
+      <p class="amount">{{ totalExpenses | currency }}</p>
+    </div>
+    <div class="stat-card balance" [ngClass]="{ positive: balance >= 0, negative: balance < 0 }">
+      <h3>Balance</h3>
+      <p class="amount">{{ balance | currency }}</p>
+    </div>
+  </div>
+
+  <!-- Charts -->
+  <div class="charts-grid">
+    <div class="chart-box">
+      <canvas #categoryChartCanvas></canvas>
+    </div>
+    <div class="chart-box">
+      <canvas #weeklyChartCanvas></canvas>
+    </div>
+  </div>
+</div>

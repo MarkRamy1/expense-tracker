@@ -1,0 +1,105 @@
+.summary-charts-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.stats-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  background: white;
+
+  h3 {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .amount {
+    margin: 0.5rem 0 0 0;
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+
+  &.income {
+    border-left: 4px solid #4bc0c0;
+    .amount {
+      color: #4bc0c0;
+    }
+  }
+
+  &.expense {
+    border-left: 4px solid #ff6384;
+    .amount {
+      color: #ff6384;
+    }
+  }
+
+  &.balance {
+    border-left: 4px solid #36a2eb;
+
+    &.positive {
+      .amount {
+        color: #4bc0c0;
+      }
+    }
+
+    &.negative {
+      .amount {
+        color: #ff6384;
+      }
+    }
+  }
+}
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.chart-box {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  canvas {
+    max-height: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .summary-charts-container {
+    padding: 1rem;
+  }
+
+  .stats-summary {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .charts-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .chart-box {
+    padding: 1rem;
+  }
+
+  .stat-card .amount {
+    font-size: 1.4rem;
+  }
+}
