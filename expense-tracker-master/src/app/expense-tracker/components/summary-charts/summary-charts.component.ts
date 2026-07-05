@@ -9,6 +9,8 @@ import { Transaction } from '../../models/transaction.model';
 
 // Register Chart.js components
 Chart.register(...registerables);
+Chart.defaults.color = '#94a3b8';
+Chart.defaults.font.family = "'Inter', system-ui, sans-serif";
 
 @Component({
   selector: 'app-summary-charts',
@@ -96,15 +98,15 @@ export class SummaryChartsComponent implements OnInit, OnDestroy {
           {
             data: chartData.data,
             backgroundColor: [
-              '#FF6384',
-              '#36A2EB',
-              '#FFCE56',
-              '#4BC0C0',
-              '#9966FF',
-              '#FF9F40',
-              '#C9CBCF'
+              '#3b82f6', // blue
+              '#8b5cf6', // purple
+              '#ec4899', // pink
+              '#10b981', // green
+              '#f59e0b', // amber
+              '#ef4444', // red
+              '#06b6d4'  // cyan
             ],
-            borderColor: '#fff',
+            borderColor: '#1e293b',
             borderWidth: 2
           }
         ]
@@ -114,11 +116,15 @@ export class SummaryChartsComponent implements OnInit, OnDestroy {
         maintainAspectRatio: true,
         plugins: {
           legend: {
-            position: 'bottom'
+            position: 'bottom',
+            labels: {
+              color: '#f8fafc'
+            }
           },
           title: {
             display: true,
-            text: 'Expenses by Category'
+            text: 'Expenses by Category',
+            color: '#f8fafc'
           }
         }
       }
@@ -167,16 +173,34 @@ export class SummaryChartsComponent implements OnInit, OnDestroy {
         maintainAspectRatio: true,
         plugins: {
           legend: {
-            position: 'bottom'
+            position: 'bottom',
+            labels: {
+              color: '#f8fafc'
+            }
           },
           title: {
             display: true,
-            text: 'Weekly Income vs Expenses'
+            text: 'Weekly Income vs Expenses',
+            color: '#f8fafc'
           }
         },
         scales: {
+          x: {
+            grid: {
+              color: 'rgba(255, 255, 255, 0.05)'
+            },
+            ticks: {
+              color: '#94a3b8'
+            }
+          },
           y: {
-            beginAtZero: true
+            beginAtZero: true,
+            grid: {
+              color: 'rgba(255, 255, 255, 0.05)'
+            },
+            ticks: {
+              color: '#94a3b8'
+            }
           }
         }
       }

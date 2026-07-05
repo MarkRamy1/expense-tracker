@@ -11,112 +11,196 @@ import { Transaction } from './models/transaction.model';
   standalone: true,
   imports: [CommonModule, SummaryChartsComponent, ExpenseFormComponent, TransactionListComponent],
   template: `
-    <div class="expense-tracker">
-      <header>
-        <h1>💰 Expense Tracker</h1>
-        <p>Track your income and expenses with beautiful charts</p>
-      </header>
-      <main class="container">
-        <div class="layout">
-          <!-- Left: Form -->
-          <aside class="sidebar">
-            <app-expense-form></app-expense-form>
-          </aside>
+    <div class="expense-tracker-app">
+      <!-- Background elements for glassmorphism look -->
+      <div class="bg-shape shape-1"></div>
+      <div class="bg-shape shape-2"></div>
+      <div class="bg-shape shape-3"></div>
 
-          <!-- Right: Charts and List -->
-          <div class="main-content">
-            <app-summary-charts></app-summary-charts>
-            <app-transaction-list></app-transaction-list>
+      <div class="app-wrapper">
+        <header class="app-header glass-panel">
+          <div class="header-content">
+            <div class="logo-container">
+              <span class="logo-icon">✨</span>
+              <h1>Expense Tracker</h1>
+            </div>
+            <p>Smart financial management</p>
           </div>
-        </div>
-      </main>
+        </header>
+
+        <main class="container">
+          <div class="layout">
+            <!-- Left: Form -->
+            <aside class="sidebar">
+              <app-expense-form></app-expense-form>
+            </aside>
+
+            <!-- Right: Charts and List -->
+            <div class="main-content">
+              <app-summary-charts></app-summary-charts>
+              <app-transaction-list></app-transaction-list>
+            </div>
+          </div>
+        </main>
+      </div>
     </div>
   `,
   styles: [`
-    .expense-tracker {
+    .expense-tracker-app {
       min-height: 100vh;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      position: relative;
+      overflow: hidden;
     }
 
-    header {
-      text-align: center;
-      color: white;
-      padding: 2rem 1rem;
-      background: rgba(0, 0, 0, 0.1);
+    /* Abstract background shapes */
+    .bg-shape {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: 0;
+      opacity: 0.6;
+    }
 
-      h1 {
-        margin: 0;
-        font-size: 2rem;
+    .shape-1 {
+      top: -10%;
+      left: -5%;
+      width: 40vw;
+      height: 40vw;
+      background: rgba(59, 130, 246, 0.3); /* Blue accent */
+    }
+
+    .shape-2 {
+      bottom: -10%;
+      right: -5%;
+      width: 50vw;
+      height: 50vw;
+      background: rgba(139, 92, 246, 0.25); /* Purple accent */
+    }
+
+    .shape-3 {
+      top: 40%;
+      left: 50%;
+      width: 30vw;
+      height: 30vw;
+      background: rgba(16, 185, 129, 0.15); /* Green accent */
+      transform: translate(-50%, -50%);
+    }
+
+    .app-wrapper {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .app-header {
+      margin: 1.5rem auto;
+      width: calc(100% - 3rem);
+      max-width: 1400px;
+      padding: 1.5rem 2rem;
+      border-radius: var(--border-radius-lg);
+      background: rgba(30, 41, 59, 0.5); /* extra transparent */
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+
+        .logo-icon {
+          font-size: 2rem;
+          background: var(--accent-gradient);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+
+        h1 {
+          margin: 0;
+          font-size: 1.75rem;
+          font-weight: 700;
+          background: linear-gradient(to right, #fff, #cbd5e1);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
       }
 
       p {
-        margin: 0.5rem 0 0 0;
-        opacity: 0.9;
+        margin: 0;
+        color: var(--text-secondary);
+        font-weight: 500;
+        font-size: 0.95rem;
       }
     }
 
     .container {
+      flex: 1;
+      width: 100%;
       max-width: 1400px;
       margin: 0 auto;
-      padding: 2rem 1rem;
+      padding: 0 1.5rem 2rem 1.5rem;
     }
 
     .layout {
       display: grid;
-      grid-template-columns: 1fr 2fr;
+      grid-template-columns: 350px 1fr;
       gap: 2rem;
+      align-items: start;
     }
 
     .sidebar {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
+      position: sticky;
+      top: 1.5rem;
     }
 
     .main-content {
       display: flex;
       flex-direction: column;
       gap: 2rem;
+      min-width: 0; /* Prevent grid blowout */
     }
 
     @media (max-width: 1024px) {
       .layout {
         grid-template-columns: 1fr;
       }
+      .sidebar {
+        position: relative;
+        top: 0;
+      }
     }
 
     @media (max-width: 768px) {
-      header h1 {
-        font-size: 1.5rem;
+      .app-header {
+        margin: 1rem;
+        width: calc(100% - 2rem);
+        padding: 1.25rem;
+      }
+
+      .header-content {
+        flex-direction: column;
+        align-items: flex-start;
       }
 
       .container {
-        padding: 1rem;
+        padding: 0 1rem 1rem 1rem;
       }
 
       .layout {
-        gap: 1.25rem;
+        gap: 1.5rem;
       }
-
+      
       .main-content {
-        gap: 1.25rem;
+        gap: 1.5rem;
       }
     }
-
-    @media (max-width: 480px) {
-      header {
-        padding: 1.5rem 0.75rem;
-      }
-
-      .container {
-        padding: 0.75rem;
-      }
-
-      .layout {
-        gap: 1rem;
-      }
-    }
-
   `]
 })
 export class ExpenseTrackerComponent implements OnInit {
