@@ -1,20 +1,33 @@
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * Delete the template below * * * * * * * * * -->
-<!-- * * * * * * * to get started with your project! * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<div class="expense-tracker-app">
+  <!-- Background elements for glassmorphism look -->
+  <div class="bg-shape shape-1"></div>
+  <div class="bg-shape shape-2"></div>
+  <div class="bg-shape shape-3"></div>
 
-<style>
-  :host {
-    display: block;
-    width: 100%;
-    min-height: 100vh;
-    min-height: 100dvh; /* better on mobile browsers */
-  }
-</style>
+  <div class="app-wrapper">
+    <header class="app-header glass-panel">
+      <div class="header-content">
+        <div class="logo-container">
+          <span class="logo-icon">✨</span>
+          <h1>Expense Tracker</h1>
+        </div>
+        <p>Smart financial management</p>
+      </div>
+    </header>
 
+    <main class="container">
+      <div class="layout">
+        <!-- Left: Form -->
+        <aside class="sidebar">
+          <app-expense-form></app-expense-form>
+        </aside>
 
-<router-outlet></router-outlet>
+        <!-- Right: Charts and List -->
+        <div class="main-content">
+          <app-summary-charts></app-summary-charts>
+          <app-transaction-list></app-transaction-list>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
