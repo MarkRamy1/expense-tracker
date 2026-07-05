@@ -32,9 +32,14 @@
             "styles": ["src/styles.scss"]
           },
           "configurations": {
-"production": {
+            "production": {
               "baseHref": "./",
               "deployUrl": "./",
+              "optimization": {
+                "fonts": {
+                  "inline": false
+                }
+              },
               "budgets": [
                 {
                   "type": "initial",
